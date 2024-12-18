@@ -20,7 +20,7 @@ def Sentinel(arr,x):
    i=0
    while(arr[i]!=x):
       i+=1
-   if i!=l:
+ 
       location=i    
    print("\n Student attending the trianing program is found at", location) 
 
@@ -41,40 +41,38 @@ def Binary(arr,x):
       
    print("\n Student attended the training program ",mid)
 
-
-def Fibbo(arr,x):
-   n=len(arr)
-   fibbo1=1
-   fibbo2=0
-   fibbo= fibbo1 + fibbo2
-   while(fibbo<n):
-      fibbo2= fibbo1
-      fibbo1=fibbo
-      fibbo= fibbo1 + fibbo2
-   offset=-1
-   
-   while(fibbo>1):
-      i=min(offset + fibbo2, n-1)
-      if(arr[i]<x):
-         fibbo=fibbo1
-         fibbo1=fibbo2
-         fibbo2= fibbo +fibbo1
-         offset =i
-         
-      elif(arr[i]>x):
-         fibbo=fibbo2
-         fibbo1=fibbo1-fibbo2
-         fibbo2=fibbo -fibbo1
+def fibonacci_search(arr, key, n):
+    b = 0
+    a = 1
+    f = b + a  
+    while f < n:
+        b = a
+        a = f
+        f = b + a
+    offset = -1
+    
+    while f > 1:
+        i = min(offset + b, n - 1)  
         
-      else:
-         return i
+        if arr[i] < key: 
+            f = a
+            a = b
+            b = f - a
+            offset = i
+        elif arr[i] > key: 
+            f = b
+            a = a - b
+            b = f - a
+        else:
+            return i  
+    
+
+    if a and arr[offset + 1] == key:
+        return offset + 1
+    
+    return -1 
+
       
-      if(fibbo1 and arr[offset+1]==x) :
-         return offset+1
-      else:
-         return -1
-      
-   print("\nStudent attenting the trainnig program at ", i)
     
 def display(arr):
   print("\n The current list ", arr)
@@ -107,9 +105,14 @@ def main():
         location= Binary(searchlist,key) 
         print(location)
         
-     elif ch==4:
-        print("\n Fibbo")   
-        Fibbo(searchlist,key)    
+     elif ch == 4:  
+        print("\nFibonacci Search")
+        position = fibonacci_search(searchlist, key, len(searchlist))
+        if position == -1:
+            print("Element not found")
+        else:
+            print(f"Element found at position {position}")
+                      
      else:
         print("\n Wrong choice ")
 
