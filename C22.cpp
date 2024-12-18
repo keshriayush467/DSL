@@ -94,36 +94,58 @@ display(head2);
 }
 
 
-void unionset()
-{
-  cout<<"\n Students who like vanilla and buterscotch both ";
-  head3= NULL;
-  node *temp1 =head1;
-  while(temp1)
-{
-  insert(head3);
-  temp1=temp1->next;
-}
-  node *temp2= head2;
-while(temp2)
-{
-  bool found= false;
-  node *temp1 =head1;
-  while(temp1)
-{
-  if(temp1->roll==temp2->roll)
-{
-   found=true;
-   break;
-}
-  temp1=temp1->next;
-}
- if(found==true)
-{
-  insert(head3);
-}
- temp2=temp2->next;
- } 
+void unionIceCream() {
+    cout << "Students who like vanilla or butterscotch: ";
+    head3 = NULL;
+    
+    node *temp1 = head1;
+    while(temp1){
+        node* newnode = new node;
+        newnode->roll = temp1->roll;
+        newnode->next=NULL;
+        
+        if(head3==NULL){
+            head3=newnode;
+        }
+        else{
+            node*t=head3;
+            while(t->next!=NULL){
+                t=t->next;
+            }
+            t->next=newnode;
+        }
+        temp1=temp1->next;
+    }
+    node *temp2 = head2;
+    while (temp2) {
+        bool found = false;
+        node*t=head3;
+        while (t) {
+            if (t->roll == temp2->roll) {
+                found = true;
+                break;
+            }
+            t = t->next;
+        }
+        if (!found){
+            node* newnode = new node;
+            newnode->roll = temp2->roll;
+            newnode->next=NULL;
+            
+            if(head3==NULL){
+                head3=newnode;
+            }
+            else{
+                node*t=head3;
+                while(t->next!=NULL){
+                    t=t->next;
+                }
+                t->next=newnode;
+            }
+        }
+        temp2 = temp2->next;
+    }
+    display(head3);
 }
 
 void intersection()
